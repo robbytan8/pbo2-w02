@@ -1,18 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.robby.controller;
 
 import com.robby.entity.Department;
 import com.robby.entity.Student;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -27,7 +25,7 @@ public class MainFormController implements Initializable {
     @FXML
     private TableColumn<Student, String> colDepartment;
     @FXML
-    private TableColumn<Student, String> colId;
+    private TableColumn<Student, String> colID;
     @FXML
     private TableColumn<Student, String> colName;
     @FXML
@@ -64,9 +62,22 @@ public class MainFormController implements Initializable {
         populateStudentData();
         comboDepartment.setItems(getDepartments());
         tableStudent.setItems(getStudents());
-        colId.setCellValueFactory(data -> data.getValue().idProperty());
+        colID.setCellValueFactory(data -> data.getValue().idProperty());
         colName.setCellValueFactory(data -> data.getValue().nameProperty());
         colDepartment.setCellValueFactory(data -> data.getValue().getDepartment().nameProperty());
+    }
+
+    @FXML
+    private void mnAboutAction(ActionEvent event) {
+        Alert alertInfo = new Alert(Alert.AlertType.INFORMATION);
+        alertInfo.setContentText("Created by Robby");
+        alertInfo.setTitle("Information");
+        alertInfo.showAndWait();
+    }
+
+    @FXML
+    private void mnCloseAction(ActionEvent event) {
+        Platform.exit();
     }
 
     private void populateDepartmentData() {
